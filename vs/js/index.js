@@ -78,6 +78,7 @@ el.addEventListener("click", replaceLabel);
 function showWeather(response) {
 	//let h1 = document.querySelector("h1");
 	let temperature = Math.round(response.data.main.temp);
+	console.log(response.data.main);
 	//alert(`It is currently ${temperature}° in ${response.data.name}`);
 	let tempLoc = document.querySelector(".today_temp");
 	tempLoc.innerHTML = `${temperature}°C`;
