@@ -89,9 +89,9 @@ function showWeather(response) {
 	let weatherLoc = document.querySelector(".weather");
 	weatherLoc.innerHTML = `${weathernow}`;
 	let humidityLoc = document.querySelector(".today_humidity");
-	humidityLoc.innerHTML = ` ${humidity}%`;
+	humidityLoc.innerHTML = ` ${humidity}% `;
 	let windLoc = document.querySelector(".today_wind");
-	windLoc.innerHTML = `${wind} km/h `;
+	windLoc.innerHTML = `${wind} km/h`;
 	let CityLoc = document.querySelector("#newcity");
 	CityLoc.innerHTML = `${response.data.name}`;
 	for (var i = 0; i < 10; i++) {
