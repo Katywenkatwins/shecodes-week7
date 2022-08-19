@@ -52,7 +52,7 @@ body {
 	color: #5c6476;
 	margin: 0;
  }
- .but1, .but2 {
+ .but1 {
 	border-radius: 40px;
 	background: #d9edfd;
 	border: 0;
@@ -73,6 +73,17 @@ body {
 	cursor: pointer;
 	background: #fff;
 	color: #d9edfd;
+ }
+
+ .but2{
+	font-size: 30px;
+	font-weight: 400;
+	font-family: Cerebri Sans, Helvetica, Arial, sans-serif;
+	display: block;
+	margin: 0 100px;
+	line-height: 12px;
+	padding: 30px 20px;
+	text-decoration: none;
  }
  
  .wrapper {

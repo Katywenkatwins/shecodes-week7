@@ -1,25 +1,28 @@
-let weather = {
-	paris: {
-		temp: 19.7,
-		humidity: 80
-	},
-	tokyo: {
-		temp: 17.3,
-		humidity: 50
-	},
-	lisbon: {
-		temp: 30.2,
-		humidity: 20
-	},
-	"san francisco": {
-		temp: 20.9,
-		humidity: 100
-	},
-	oslo: {
-		temp: -5,
-		humidity: 20
-	}
-};
+let weather = [
+	"clear sky",
+	"few clouds",
+	"scattered clouds",
+	"broken clouds",
+	"shower rain",
+	"rain",
+	"thunderstorm",
+	"snow",
+	"mist",
+	"overcast clouds"
+];
+
+let weatherIcon = [
+	"☀️",
+	"🌤",
+	"⛅️",
+	"☁️",
+	"🌧",
+	"☔️",
+	"⛈",
+	"🌨",
+	"🌫",
+	"☁️"
+];
 
 let now = new Date();
 
@@ -76,14 +79,28 @@ let el = document.querySelector("#convert");
 el.addEventListener("click", replaceLabel);
 
 function showWeather(response) {
-	//let h1 = document.querySelector("h1");
 	let temperature = Math.round(response.data.main.temp);
-	console.log(response.data.main);
-	//alert(`It is currently ${temperature}° in ${response.data.name}`);
+	let weathernow = response.data.weather[0].description;
+	console.log(response.data);
+	let humidity = response.data.main.humidity;
+	let wind = response.data.wind.speed;
 	let tempLoc = document.querySelector(".today_temp");
 	tempLoc.innerHTML = `${temperature}°C`;
+	let weatherLoc = document.querySelector(".weather");
+	weatherLoc.innerHTML = `${weathernow}`;
+	let humidityLoc = document.querySelector(".today_humidity");
+	humidityLoc.innerHTML = ` ${humidity}%`;
+	let windLoc = document.querySelector(".today_wind");
+	windLoc.innerHTML = `${wind} km/h `;
 	let CityLoc = document.querySelector("#newcity");
 	CityLoc.innerHTML = `${response.data.name}`;
+	for (var i = 0; i < 10; i++) {
+		if (weathernow == weather[i]) {
+			weathernow = weatherIcon[i];
+		};
+	}
+	let iconLoc = document.querySelector(".sun");
+	iconLoc.innerHTML = `${weathernow}`;
 }
 
 function retrievePosition(position) {
