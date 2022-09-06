@@ -94,21 +94,28 @@ function displayForecast(response) {
 
 	forecastElement.innerHTML = forecastHTML;
 }
+let city = "";
 
 let temperature = 25;
 function showCity(event) {
 	event.preventDefault();
 	let userCity = document.querySelector("#cityname");
-	let city = userCity.value;
+	city = userCity.value;
 	let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
 	let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 	axios.get(url).then(showWeather);
-	let ApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
+	connect(city);
+}
+
+function connect(citynow) {
+	let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+	let ApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${citynow}&units=metric&appid=${apiKey}`;
 	axios.get(ApiUrl).then(displayForecast);
 }
 
 let cityForm = document.querySelector("#cityform");
 cityForm.addEventListener("submit", showCity);
+
 
 function replaceLabel() {
 	//event.preventDefault();
@@ -145,6 +152,7 @@ function showWeather(response) {
 	}
 	let iconLoc = document.querySelector(".sun");
 	iconLoc.innerHTML = `${weathernow}`;
+	connect(response.data.name);
 }
 
 function retrievePosition(position) {
@@ -159,44 +167,7 @@ function getPosition() {
 	navigator.geolocation.getCurrentPosition(retrievePosition);
 }
 
-function getForecast(response) {
-	let city1 = response.data.name;
-	let ApiUrl1 = `https://api.openweathermap.org/data/2.5/forecast?q=${city1}&units=metric&appid=${apiKey}`;
-	axios.get(ApiUrl1).then(displayForecast);
-}
 
 let curLoc = document.querySelector("#but1");
-curLoc.addEventListener("click", getPosition, getForecast);
+curLoc.addEventListener("click", getPosition);
 
-
-
-
-
-/*<div class="block">
-		<div class="block__row">
-			<div class="block__column block__column_1">
-				<div class="block__item">02 jul<p class="sun2">☀️</p>
-					<p>25°C/<br />20°C</p>
-				</div>
-			</div>
-			<div class="block__column block__column_2">
-				<div class="block__item">03 jul<p class="sun2">☀️</p>
-					<p>25°C/<br />20°C</p>
-				</div>
-			</div>
-			<div class="block__column block__column_3">
-				<div class="block__item">04 jul<p class="sun2">☀️</p>
-					<p>25°C/<br />20°C</p>
-				</div>
-			</div>
-			<div class="block__column block__column_4">
-				<div class="block__item">05 jul<p class="sun2">☀️</p>
-					<p>25°C/<br />20°C</p>
-				</div>
-			</div>
-			<div class="block__column block__column_5">
-				<div class="block__item">06 jul<p class="sun2">☀️</p>
-					<p>25°C/<br />20°C</p>
-				</div>
-			</div>
-		</div>*/
