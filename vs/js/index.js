@@ -50,8 +50,32 @@ let month = [
 	"December"
 ];
 let todayday = day[now.getDay()];
+function formatDate() {
+	let date = new Date();
+	let hours = date.getHours();
+	if (hours < 10) {
+		hours = `0${hours}`;
+	}
+	let minutes = date.getMinutes();
+	if (minutes < 10) {
+		minutes = `0${minutes}`;
+	}
+
+	let days = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	];
+	let day = days[date.getDay()];
+	return `${day} ${hours}:${minutes}`;
+}
+
 let data = document.querySelector("p.date");
-data.innerHTML = `${todayday} ${now.getHours()}:${now.getMinutes()}`;
+data.innerHTML = formatDate();
 let today = document.querySelector("p.today");
 today.innerHTML = `Today: ${now.getDate()} ${month[now.getMonth()]} ${now.getFullYear()}`;
 
@@ -59,14 +83,15 @@ function displayForecast(response) {
 	let forecastElement = document.querySelector("#forecast");
 	console.log(response.data.list);
 	let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
-	let i = now.getDay();
+	let u = now.getDay();
+	let i = 0;
 	days.forEach(function () {
-		if (i < 5) days[i] = day[++i]
-		else i = 0;
+		if (u < 6) { days[i] = day[u + 1]; i++; u++; }
+		else { u = 0; days[i] = day[u]; i++; u++; }
 	})
 	let forecastHTML = ``;
-	let y = 0;
-	days.forEach(function (todayday, y) {
+	let a = 0;
+	days.forEach(function (todayday, y = a) {
 
 		let tempMin = 0;
 		let tempMax = 0;
@@ -87,7 +112,7 @@ function displayForecast(response) {
 				</div>
 			</div>
 
-	`; y = y + 8;
+	`; a = y + 8;
 	});
 
 
